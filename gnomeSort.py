@@ -1,51 +1,53 @@
 import time
 
-def gnomeSortWithDetails(list):
-  started             = time.time()
+def gnomeSortDetailed(list):
+  start               = time.time()
   index               = 0
   amountMovement      = 0
   amountVerifications = 0
-  infoToPrint         = list
 
-  while index < len(list) - 1:
-    if list[index] > list[index + 1]:
-      list[index + 1], list[index] = list[index], list[index + 1]
+  while index < len(list):
+    if index == 0:
+      index += 1
+
+    if list[index] >= list[index -1]:
+      print(list, '- Verificou ', list[index], 'e', list[index - 1])
+      index += 1
+    else:
+      list[index], list[index - 1] = list[index - 1], list[index]
+      print(list, '- Movimentou', list[index], 'e', list[index - 1])
+      index -= 1
       amountMovement += 1
-      infoToPrint = str(list) + ' ' + str(list[index + 1]) + ' > ' + str(list[index]) + ' - Movimentou => ' + str(list[index + 1]) + ' e ' + str(list[index])
 
-      if index > 0:
-        index -= 2
-
-    print(infoToPrint)
-    infoToPrint = str(list) + ' ' + str(list[index]) + ' > ' + str(list[index + 1]) + ' - Não movimentou'
-    index += 1
     amountVerifications += 1
 
-  print('----------------------------------------')
-  print('Verificações :', amountVerifications)
-  print('Movimentações:', amountMovement)
-  print('Tempo        :', time.time() - started)
+  print('-----------------------------------------------')
+  print('Lista ordenada:', list)
+  print('Tempo         :', time.time() - start)
+  print('Movimentacoes :', amountMovement)
+  print('Verificacoes  :', amountVerifications)
 
-def gnomeSortWithoutDetails(list):
-  started = time.time()
-  index   = 0
+def gnomeSort(list):
+  start = time.time()
+  index = 0
 
-  while index < len(list) - 1:
-    if list[index] > list[index + 1]:
-      list[index + 1], list[index] = list[index], list[index + 1]
+  while index < len(list):
+    if index == 0:
+      index += 1
 
-      if index > 0:
-        index -= 2
+    if list[index] >= list[index -1]:
+      index += 1
+    else:
+      list[index], list[index - 1] = list[index - 1], list[index]
+      index -= 1
 
-    index += 1
+  print('Lista ordenada:', list)
+  print('-----------------------------------------------')
+  print('Tempo:', time.time() - start)
 
-  print('Lista ordenada =>', list)
-  print('----------------------------------------')
-  print('Tempo:', time.time() - started)
+initialList = [10, 5, 2, 11, 1]
+print('Lista inicial:', initialList)
+print('-----------------------------------------------')
 
-data = [10, 5, 2, 11, 1]
-print('Lista inicial =>', data)
-print('----------------------------------------')
-
-gnomeSortWithDetails(data)
-gnomeSortWithoutDetails(data)
+# gnomeSortDetailed(initialList)
+gnomeSort(initialList)
